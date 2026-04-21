@@ -1,0 +1,19 @@
+services:
+  ingestor:
+    build:
+      context: ./ingestor
+      dockerfile: Dockerfile
+    container_name: ingestor
+    depends_on:
+      - broker
+      - database
+    environment:
+      MQTT_HOST: broker
+      MQTT_PORT: 1883
+      MQTT_TOPIC: lab/+/+/+
+      DB_HOST: database
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_PORT: 5432
+    restart: unless-stopped
